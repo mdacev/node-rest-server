@@ -6,8 +6,9 @@ const _ = require('underscore');
 const app = express();
 
 const Usuario = require('../models/usuario');
+const { verificaToken } = require('../middlewares/autenticacion');
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificaToken, (req, res) => {
    
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -49,10 +50,10 @@ app.post('/usuario', function(req, res) {
 
     let usuario = new Usuario({
 
-        username: 'mariano',//body.username,
-        email: 'm@m.com',//body.email,
-        password: bcrypt.hashSync( '1234' , 10 ),//body.password,
-        role: 'ADMIN_ROLE'//body.role
+        username: body.username,
+        email: body.email,
+        password: bcrypt.hashSync( body.password , 10 ),
+        role: body.role
     });
 
     usuario.save( (err, usuarioDB) => {
@@ -78,9 +79,9 @@ app.put('/usuario/:id', function(req, res) {
     let id = req.params.id;
     let body = {
 
-        username: 'marianodddd',//body.username,
-        email: 'mariano@mar.com',//body.email,
-        password: bcrypt.hashSync( '123456' , 10 ),//body.password,
+        username: 'mmd',//body.username,
+        email: 'mmd@mar.com',//body.email,
+        password: bcrypt.hashSync( 'md' , 10 ),//body.password,
         role: 'ADMIN_ROLE',//body.role
     };//req.body;
 

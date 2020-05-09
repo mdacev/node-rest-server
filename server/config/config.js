@@ -15,3 +15,9 @@ let url = 'mongodb+srv://mariano:oL15xbTHa30Y7Frn@cluster0-1c0mb.mongodb.net/caf
         url = 'mongodb://localhost:27017/cafe';
 
 process.env.URLBD = url;
+
+// ============================
+//  TOKEN
+// ============================
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30; //1 mes
+process.env.SEED = process.env.SEED || 'SEED_DESARROLLO';
