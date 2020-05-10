@@ -19,5 +19,5 @@ process.env.URLBD = url;
 // ============================
 //  TOKEN
 // ============================
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30; //1 mes
+process.env.CADUCIDAD_TOKEN = Number( 1000000);
 process.env.SEED = process.env.SEED || 'SEED_DESARROLLO';

@@ -6,14 +6,14 @@ const _ = require('underscore');
 const app = express();
 
 const Usuario = require('../models/usuario');
-const { verificaToken } = require('../middlewares/autenticacion');
+const { verificaToken, verificaAdminRole } = require('../middlewares/autenticacion');
 
 app.get('/usuario', verificaToken, (req, res) => {
    
     let desde = req.query.desde || 0;
     desde = Number(desde);
 
-    let limite = req.query.limite || 11;
+    let limite = req.query.limite || 12;
     limite = Number(limite);
 
     //Paginado
@@ -31,7 +31,7 @@ app.get('/usuario', verificaToken, (req, res) => {
             }
             
             //Cantidad total de registros.
-            Usuario.count({ status:true }, (err, total) => {
+            Usuario.countDocuments({ status:true }, (err, total) => {
 
                     res.json({
                     ok: true,
@@ -44,10 +44,11 @@ app.get('/usuario', verificaToken, (req, res) => {
         });
 });
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificaToken, verificaAdminRole], (req, res) => {
 
     let body = req.body;
 
+    console.log('POST  => ',body)
     let usuario = new Usuario({
 
         username: body.username,
@@ -74,21 +75,15 @@ app.post('/usuario', function(req, res) {
 
 });
 
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
 
     let id = req.params.id;
-    let body = {
-
-        username: 'mmd',//body.username,
-        email: 'mmd@mar.com',//body.email,
-        password: bcrypt.hashSync( 'md' , 10 ),//body.password,
-        role: 'ADMIN_ROLE',//body.role
-    };//req.body;
+    let body = req.body;
 
     //underscore - para validar que campos se pueden actualizar.
-    let _body = _.pick( req.body, ['username' , 'email', 'role', 'img', 'status']);
+    let _body = _.pick( body, ['username' , 'email', 'role', 'img', 'status', 'google']);
 
-    //console.log(_body);
+    console.log(_body+'\n'+id);
 
     Usuario.findByIdAndUpdate( id, _body, {new:true, runValidators: true}, (err, usuarioDB) => {
 
@@ -106,7 +101,7 @@ app.put('/usuario/:id', function(req, res) {
     });
 });
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
     
     let id = req.params.id;
 
