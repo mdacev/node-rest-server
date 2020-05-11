@@ -21,3 +21,8 @@ process.env.URLBD = url;
 // ============================
 process.env.CADUCIDAD_TOKEN = Number( 1000000);
 process.env.SEED = process.env.SEED || 'SEED_DESARROLLO';
+
+// ============================
+//  Google Client Id
+// ============================
+process.env.GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '400541357062-mktdshn8cijvodmsdebummjrfro2a723.apps.googleusercontent.com'
