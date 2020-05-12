@@ -16,7 +16,7 @@ let verificaToken = ( req, res, next) => {
             });
         }
 
-        req.usuario = decoded.usuario;
+        req.usuario = decoded;
     });
 
     next();
@@ -27,8 +27,7 @@ let verificaToken = ( req, res, next) => {
 //Vericar que sea administrador
 let verificaAdminRole = ( req, res, next) => {
 
-    let usuario = req.usuario;
-    
+    let usuario = req.usuario.usuarioDB;
     if( usuario.role === 'ADMIN_ROLE' ){
         next();
     }

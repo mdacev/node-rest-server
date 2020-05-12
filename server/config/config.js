@@ -19,7 +19,7 @@ process.env.URLBD = url;
 // ============================
 //  TOKEN
 // ============================
-process.env.CADUCIDAD_TOKEN = Number( 1000000);
+process.env.CADUCIDAD_TOKEN = '72h';
 process.env.SEED = process.env.SEED || 'SEED_DESARROLLO';
 
 // ============================
