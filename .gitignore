@@ -2,3 +2,5 @@
 
 
 node_modules/
+!/server/uploads/productos/*.jpg *.png
+!/server/uploads/usuarios/*.jpg *.png
